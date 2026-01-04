@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 
-im = Image.open("./images/levi.webp")
+im = Image.open("./images/akari.png")
 
 print(im.format, im.size, im.mode)
 
@@ -14,44 +14,51 @@ im_array = np.asarray(im)
 
 #resize image to 100 by 100
 im_resize = im.resize(size=(100,100))
-#im_resize.show()
-#print(im_resize)
+
 
 #convert resized image to an array
 im_array2 = np.asarray(im_resize)
 
-#now changing the shape of 3d array to 2d
-# h,w,rgb = im_array.shape
-# im_array_2d = im_array.reshape((h*w, rgb))
-# print(im_array_2d.shape)
-
 #resized image to 2d
 h,w,rgb = im_array2.shape
-print(rgb)
 im_array2_2d = im_array2.reshape((h*w, rgb))
-# print(im_array2_2d.shape)
-# print(im_array2_2d.ndim)
-# print(im_array2_2d.size)
-# print(np.ones(5))
+
 
 #using K-means to group the image arrays into clusters
 im_ressize_kmeans = KMeans(n_clusters=5, random_state=0, n_init="auto").fit(im_array2_2d)
-# print(im_ressize_kmeans)
-# print(im_ressize_kmeans.labels_)
-# print(im_ressize_kmeans.predict)
-# print(im_ressize_kmeans.cluster_centers_)
+
 d_colors = im_ressize_kmeans.cluster_centers_
-# print(d_colors.shape)
+im_labels = im_ressize_kmeans.labels_
+print(im_labels)
+print(len(im_labels))
+pal_group = np.bincount(im_labels)
+print(pal_group)
+print(pal_group[3])
+
+pal_cent = (pal_group*100)/len(im_labels)
+print(pal_cent)
+
+
+# print(percent_pallete(pal_group))
 
 #visualizing it with matplotlib
 color_im = d_colors/255
 
-plt.figure(figsize=(10,2))
+# plt.figure(figsize=(10,2))
 plt.bar(range(5), np.ones(5), color=color_im, width=1)
 plt.title("Anime Image Color Palletes")
-plt.axis('off')
+#plt.axis('off')
+for i in range(5):
+    plt.text(x=i, y=0.5, s=f'{pal_cent[i]:.1f}%', ha='center', fontsize=10, color='white')
+
+plt.xlabel('Color percentage and Hex codes')
+plt.ylabel('X axis')
 
 
 plt.show()
+#plt.savefig("output/akarrri_palette.png")
 
-#color.plot()
+#view percentage of each color cluster
+
+# for i in range(5):
+#     plt.text(x=i, y=0.5, s=f'{pal_cent[i]:.1f}%', ha='center', fontsize=10, color='white')
