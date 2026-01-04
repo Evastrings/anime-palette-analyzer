@@ -38,6 +38,45 @@ print(pal_group[3])
 pal_cent = (pal_group*100)/len(im_labels)
 print(pal_cent)
 
+#Printing out he HEXCODES by converting them first
+# After you calculate pal_cent (around line 38)
+
+# Step 1: Convert ONE color to hex first (test it!)
+print(d_colors)
+for i in range(5):
+    print(d_colors[i])
+# Pick the first color: d_colors[0]
+# for i in range(3):
+#     r,g,b
+
+d_colors2 = d_colors.astype(int)
+
+hex_codes_v1 = []
+for i in range(5):
+    print(d_colors2[i])
+    cat2 = '#'
+    for j in range(3):
+        cat2 = cat2 + format(d_colors2[i][j], 'x')
+    hex_codes_v1.append(cat2)
+
+print(hex_codes_v1)
+
+r,g,b = d_colors2[0][0], d_colors2[0][1], d_colors2[0][2]
+# Extract R, G, B values
+# Convert each to hex
+print(f'rgb:{r:x}, {g:x}, {b:x}')
+#hex_string = format(number, 'x')
+# r = format(r, 'x')
+# print(type(r))
+
+cat = '#'
+for i in r,g,b:
+    cat = cat + format(i, 'x')
+print(cat)
+# Combine with '#'
+# Print it to verify
+
+# Step 2: Once that works, loop through all 5 colors
 
 # print(percent_pallete(pal_group))
 
@@ -49,7 +88,8 @@ plt.bar(range(5), np.ones(5), color=color_im, width=1)
 plt.title("Anime Image Color Palletes")
 #plt.axis('off')
 for i in range(5):
-    plt.text(x=i, y=0.5, s=f'{pal_cent[i]:.1f}%', ha='center', fontsize=10, color='white')
+    plt.text(x=i, y=0.5, s=f'{pal_cent[i]:.1f}%', ha='center', fontsize=10, color='black')
+    plt.text(x=i, y=0.3, s=f'{hex_codes_v1[i]}', ha='center', fontsize=10, color='black')
 
 plt.xlabel('Color percentage and Hex codes')
 plt.ylabel('X axis')
@@ -60,5 +100,3 @@ plt.show()
 
 #view percentage of each color cluster
 
-# for i in range(5):
-#     plt.text(x=i, y=0.5, s=f'{pal_cent[i]:.1f}%', ha='center', fontsize=10, color='white')
