@@ -5,91 +5,95 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 
-im = Image.open("./images/akari.png")
+def extract_dominant_colors(image_path, n_colors=5, resize_dim=(100, 100)):
+    """
+    Extract dominant colors from an image arrays using K-means clustering.
+    
+    Parameters:
+    image_path: path to the image file
+    n_colors: number of dominant colors to extract
+    resize_dim: tuple (width, height) to resize image
+    
+    Returns:
+    colors: array of RGB colors
+    percentages: array of percentages for each color
+    """
+    # Your code from lines 8-39 goes here
+    im = Image.open(image_path)
+    
+    # resize the image
+    size = resize_dim
+    im2 = im.resize(size)
 
-print(im.format, im.size, im.mode)
+    # Convert resized image to array
+    im2_array = np.asarray(im2)
 
-#converting image to an array
-im_array = np.asarray(im)
+    # Convert resized image array to 2D array
+    h,w,rgb = im2_array.shape
+    im2_array_2d = im2_array.reshape((h*w, rgb))
 
-#resize image to 100 by 100
-im_resize = im.resize(size=(100,100))
+    #using K-means to group the image arrays into clusters
+    im2_resize_kmeans = KMeans(n_clusters=n_colors, random_state=0, n_init="auto").fit(im2_array_2d)
+
+    my_colors = im2_resize_kmeans.cluster_centers_
+    im2_labels = im2_resize_kmeans.labels_
+    color_group = np.bincount(im2_labels)
+    color_percent = (color_group*100)/len(im2_labels)
+
+    return my_colors, color_percent
+
+d_colors, pal_cent = extract_dominant_colors("./images/pfp.jpg")
 
 
-#convert resized image to an array
-im_array2 = np.asarray(im_resize)
 
-#resized image to 2d
-h,w,rgb = im_array2.shape
-im_array2_2d = im_array2.reshape((h*w, rgb))
+#Printing out the HEXCODES by converting them first
 
+# d_colors2 = d_colors.astype(int)
+# print(f'I AM D_COLORS2 {d_colors2[2]}')
 
-#using K-means to group the image arrays into clusters
-im_ressize_kmeans = KMeans(n_clusters=5, random_state=0, n_init="auto").fit(im_array2_2d)
+def rgb_to_hex(rgb_color):
+    """
+    Convert an RGB color to HEX format.
+    
+    Parameters:
+    rgb_color: array with [R, G, B] values (0-255)
+    
+    Returns:
+    string: HEX color code like '#FF5733'
+    """
+    # Your existing hex conversion logic here
+    r, g, b = rgb_color
+    cat2 = '#'
+    for value in [r, g, b]:
+        cat2 = cat2 + format(int(value), '02x')
+    return cat2
 
-d_colors = im_ressize_kmeans.cluster_centers_
-im_labels = im_ressize_kmeans.labels_
-print(im_labels)
-print(len(im_labels))
-pal_group = np.bincount(im_labels)
-print(pal_group)
-print(pal_group[3])
-
-pal_cent = (pal_group*100)/len(im_labels)
-print(pal_cent)
-
-#Printing out he HEXCODES by converting them first
-
-print(d_colors)
-for i in range(5):
-    print(d_colors[i])
-# Pick the first color: d_colors[0]
-# for i in range(3):
-#     r,g,b
-
-d_colors2 = d_colors.astype(int)
 
 hex_codes_v1 = []
 for i in range(5):
-    print(d_colors2[i])
-    cat2 = '#'
-    for j in range(3):
-        cat2 = cat2 + format(d_colors2[i][j], 'x')
-    hex_codes_v1.append(cat2)
+    hex_codes_v1.append(rgb_to_hex(d_colors[i]))
 
 print(hex_codes_v1)
 
-
 #writing out hexcodes into a file
-data_list = ["apple", "banana", "cherry", "date"]
-file_path = "output_list.txt"
-
-# with open(file_path, "w") as file:
-#     for item in data_list:
-#         # Write each item followed by a newline character
-#         file.write(f"{item}\n")
-
-# print(f"List successfully written to {file_path}")
-
-file_path = "output/hexcode.txt"
-with open(file_path, "w") as file:
-    for c_olors in hex_codes_v1:
-        file.write(f'{c_olors}\n')
+def save_palette_to_file(hex_codes, output_path):
+    """
+    Save color palette HEX codes to a text file.
+    
+    Parameters:
+    hex_codes: list of HEX color codes
+    output_path: path where to save the file
+    """
+    # Your file writing code from lines 65-70
+    with open(output_path, "w") as file:
+        for c_olors in hex_codes:
+            file.write(f'{c_olors}\n')
 
 
-r,g,b = d_colors2[0][0], d_colors2[0][1], d_colors2[0][2]
+file_path = "output/pfpp_hexcode.txt"
+save_palette_to_file(hex_codes_v1, file_path)
 
-print(f'rgb:{r:x}, {g:x}, {b:x}')
-#hex_string = format(number, 'x')
-# r = format(r, 'x')
-# print(type(r))
 
-cat = '#'
-for i in r,g,b:
-    cat = cat + format(i, 'x')
-print(cat)
-
-# print(percent_pallete(pal_group))
 
 #visualizing it with matplotlib
 color_im = d_colors/255
