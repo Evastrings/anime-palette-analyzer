@@ -5,16 +5,16 @@ from palette_generator import save_palette_to_file
 
 
 def main():
-    image_path = "./images/horikita.jpg"
+    image_path = "./images/megumi.jpg"
     n_colors = 5
     
     colors, percentages = extract_dominant_colors(image_path, n_colors)
     
     hex_codes = [rgb_to_hex(color) for color in colors]
    
-    visualize_palette(colors, percentages, hex_codes, output_path="output/horikitav1palete.png")
+    visualize_palette(colors, percentages, hex_codes, output_path="output/megumi_palete.png")
     
-    save_palette_to_file(hex_codes, "output/horikitacode.txt")
+    save_palette_to_file(hex_codes, "output/hexcodes/megumicode.txt")
     
     print("Anime Palette extraction complete!")
 
