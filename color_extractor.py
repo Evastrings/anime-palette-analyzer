@@ -3,7 +3,6 @@ from PIL import Image
 import numpy as np
 from sklearn.cluster import KMeans
 
-
 def extract_dominant_colors(image_path, n_colors=5, resize_dim=(100, 100)):
     """
     Extract dominant colors from an image arrays using K-means clustering.
@@ -39,23 +38,5 @@ def extract_dominant_colors(image_path, n_colors=5, resize_dim=(100, 100)):
     color_percent = (color_group*100)/len(im2_labels)
 
     return my_colors, color_percent
-
-# d_colors, pal_cent = extract_dominant_colors("./images/pfp.jpg")
-
-
-# hex_codes_v1 = []
-# for i in range(5):
-#     hex_codes_v1.append(rgb_to_hex(d_colors[i]))
-
-# print(hex_codes_v1)
-
-
-
-# file_path = "output/pfpp_hexcode.txt"
-# save_palette_to_file(hex_codes_v1, file_path)
-
-
-
-# visualize_palette(d_colors, pal_cent, hex_codes_v1, "output/pfpp_palette.png")
 
 
