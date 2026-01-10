@@ -1,2 +1,5 @@
-Install the following dependencies:
-pip3 install pillow numpy matplotlib scikit-learn pandas streamlit
+pillow
+numpy
+matplotlib
+scikit-learn
+pandas
