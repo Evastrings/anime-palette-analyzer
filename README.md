@@ -237,7 +237,6 @@ MIT License - feel free to use this project for learning or building upon!
 
 - 🌐 Portfolio: [https://x.com/hxdlab]
 - 💼 LinkedIn: [https://ng.linkedin.com/in/elijahakande]
-- 🐙 GitHub: [@Evastrings](https://github.com/Evastrings)
 - 📧 Email: elijahferanmikun@gmail.com
 
 ---
