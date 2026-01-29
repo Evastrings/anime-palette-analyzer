@@ -3,12 +3,12 @@ from PIL import Image
 import numpy as np
 from sklearn.cluster import KMeans
 
-def extract_dominant_colors(image_path, n_colors=5, resize_dim=(100, 100)):
+def extract_dominant_colors(image_stream, n_colors=5, resize_dim=(100, 100)):
     """
     Extract dominant colors from an image arrays using K-means clustering.
     
     Parameters:
-    image_path: path to the image file
+    image_stream: image file from bytes
     n_colors: number of dominant colors to extract
     resize_dim: tuple (width, height) to resize image
     
@@ -16,7 +16,7 @@ def extract_dominant_colors(image_path, n_colors=5, resize_dim=(100, 100)):
     colors: array of RGB colors
     percentages: array of percentages for each color
     """
-    im = Image.open(image_path)
+    im = Image.open(image_stream)
     
     # resize the image
     size = resize_dim

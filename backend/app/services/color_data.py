@@ -10,6 +10,10 @@ def rgb_to_hex(rgb_color):
     """
     r, g, b = rgb_color
     cat2 = '#'
+    rgb_int = []
     for value in [r, g, b]:
         cat2 = cat2 + format(int(value), '02x')
-    return cat2
+        rgb_int.append(int(value))
+    return cat2, rgb_int
+
+#print(rgb_to_hex([[123.45, 67.89, 234.56], [245.4, 5.7, 99]]))
