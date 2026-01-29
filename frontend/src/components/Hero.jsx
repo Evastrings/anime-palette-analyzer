@@ -5,7 +5,7 @@ function Hero() {
         <h1 className="text-5xl font-bold mb-4">
           🎨 Anime Palette Analyzer
         </h1>
-        <p className="text-2xl mb-2">Hi there! 👋</p>
+        <p className="text-2xl mb-2">Hi there!</p>
         <p className="text-xl">
           Did you see an image that triggered your creativity?
         </p>
