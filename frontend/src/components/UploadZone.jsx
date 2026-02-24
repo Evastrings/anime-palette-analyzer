@@ -48,7 +48,7 @@ function UploadZone({ onColorsExtracted, shouldReset }) {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await fetch('https://anime-palette-analyzer-production.up.railway.app/api/analyze', {
+      const response = await fetch('https://anime-palette-analyzer-4q1e.vercel.app/api/analyze', {
         method: 'POST',
         body: formData,
       });
