@@ -28,7 +28,7 @@ function Footer() {
           </a>
           <span>•</span>
           <a 
-            href="https://x.com/hxdlab" 
+            href="https://elijah-porfolio-dev.vercel.app/" 
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
